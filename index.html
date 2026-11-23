@@ -14,7 +14,7 @@ header{max-width:1440px;margin:auto;padding:24px 28px 10px;display:flex;align-it
 .top-stats{display:flex;gap:10px;align-items:center}.stat{background:#1b2230;border:1px solid var(--line);padding:8px 13px;border-radius:12px;color:var(--muted);font-size:12px}.stat strong{display:block;color:var(--text);font-size:16px}
 .app{max-width:1440px;margin:0 auto;padding:16px 28px 36px;display:grid;grid-template-columns:220px minmax(300px,1fr) 310px;gap:18px;align-items:stretch}
 .panel{background:linear-gradient(180deg,#1c2330,#171c26);border:1px solid var(--line);border-radius:20px;box-shadow:0 16px 45px #0003}
-.chapters{padding:18px;height:fit-content;max-height:calc(100vh - 130px);overflow:auto}.panel-heading{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.13em;margin:0 0 14px}
+.chapters{padding:18px;height:fit-content;max-height:calc(100vh - 130px);overflow:auto}.panel-heading{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.13em;margin:0 0 14px}.panel-toggle{display:none;background:transparent;color:var(--text);border:1px solid var(--line);padding:5px 9px;border-radius:9px;font-size:12px}.panel-title-row{display:flex;align-items:center;justify-content:space-between;gap:10px}.color-search{width:100%;margin:0 0 10px;padding:11px 12px;border-radius:10px;border:1px solid #465166;background:#111722;color:var(--text);font:inherit;outline:none}.color-search:focus{border-color:var(--accent)}.empty-search{grid-column:1/-1;text-align:center;color:var(--muted);font-size:12px;padding:18px 8px}
 .chapter-list{display:grid;gap:7px}.chapter{width:100%;text-align:left;background:transparent;color:#b8c1d0;border:1px solid transparent;padding:10px 11px;display:flex;justify-content:space-between;align-items:center;border-radius:11px;font-size:13px}.chapter.active{background:#302b4a;border-color:#6755a8;color:white}.chapter.unlocked:hover{background:#252e3d}.chapter.locked{opacity:.35;cursor:not-allowed}.chapter small{font-size:10px;color:var(--muted)}
 .center{padding:22px;display:flex;flex-direction:column;align-items:center;min-height:610px;position:relative}
 .center-top{width:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);font-weight:800}.center h2{margin:3px 0 0;font-size:25px}.progress-wrap{width:100%;margin:19px 0 8px}.progress-label{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:8px}.progress{height:8px;background:#30394a;border-radius:20px;overflow:hidden}.progress>span{height:100%;display:block;background:linear-gradient(90deg,#8b7cf6,#61d6b1);border-radius:20px;transition:width .3s}
@@ -34,7 +34,7 @@ header{max-width:1440px;margin:auto;padding:24px 28px 10px;display:flex;align-it
 .auth-actions{display:flex;gap:9px;margin-top:11px}.auth-actions button{flex:1}.profile-list{display:grid;gap:7px;margin:15px 0}.profile-choice{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:#252e3d;color:var(--text);border:1px solid #394457;padding:10px 12px}.profile-choice small{color:var(--muted);font-weight:400}.profile-entry{display:flex;gap:7px;align-items:center}.profile-entry .profile-choice{flex:1;min-width:0}.delete-profile{background:#542b35;color:#ffdce2;border:1px solid #80404d;padding:9px 11px;font-size:12px}.auth-note{font-size:11px!important;line-height:1.5;margin-top:17px!important}
 @media(max-width:650px){.top-stats{flex-wrap:wrap;justify-content:flex-end}.auth-card{padding:22px}}
 @media(max-width:1050px){.app{grid-template-columns:190px minmax(280px,1fr)}.right{grid-column:1/-1;min-height:unset}.swatches{grid-template-columns:repeat(6,minmax(0,1fr));max-height:260px}.mixbox{margin-top:14px}}
-@media(max-width:650px){header{padding:18px 14px;align-items:flex-start}.top-stats{gap:5px}.stat{padding:6px 8px}.stat strong{font-size:13px}.app{padding:10px 12px 24px;grid-template-columns:1fr}.chapters{max-height:unset}.chapter-list{grid-template-columns:repeat(4,1fr)}.chapter{padding:8px 6px;display:block;text-align:center}.chapter small{display:block}.center{min-height:570px;padding:17px}.right{grid-column:auto}.swatches{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:650px){.panel-toggle{display:inline-flex;align-items:center;white-space:nowrap}.chapters.collapsed #chapterList{display:none}#colorsPanel.collapsed #colorsContent{display:none}.chapters .panel-heading,.right .panel-heading{margin:0}header{padding:18px 14px;align-items:flex-start}.top-stats{gap:5px}.stat{padding:6px 8px}.stat strong{font-size:13px}.app{padding:10px 12px 24px;grid-template-columns:1fr}.chapters{max-height:unset}.chapter-list{grid-template-columns:repeat(4,1fr)}.chapter{padding:8px 6px;display:block;text-align:center}.chapter small{display:block}.center{min-height:570px;padding:17px}.right{grid-column:auto}.swatches{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -43,8 +43,8 @@ header{max-width:1440px;margin:auto;padding:24px 28px 10px;display:flex;align-it
   <div class="top-stats"><div class="stat">PLAYER<strong id="activePlayer">—</strong></div><button class="ghost" id="switchPlayerBtn">Switch Player</button><div class="stat">CHAPTER<strong id="headerChapter">01 / 20</strong></div><div class="stat">COLORS FOUND<strong id="headerFound">6</strong></div></div>
 </header>
 <main class="app">
-  <aside class="panel chapters">
-    <h3 class="panel-heading">Chapters</h3>
+  <aside class="panel chapters" id="chaptersPanel">
+    <div class="panel-title-row"><h3 class="panel-heading">Chapters</h3><button class="panel-toggle" id="chaptersToggle" type="button" aria-expanded="true">Hide ▴</button></div>
     <div class="chapter-list" id="chapterList"></div>
   </aside>
   <section class="panel center">
@@ -55,9 +55,9 @@ header{max-width:1440px;margin:auto;padding:24px 28px 10px;display:flex;align-it
     <div class="controls"><button class="primary" id="generateBtn">✦ Generate</button><button class="secondary" id="rebirthBtn">↻ Rebirth</button></div>
     <p class="hint" id="centerHint">Generate a color made from the colors you have discovered. New discoveries stay with you when you enter the next chapter.</p>
   </section>
-  <aside class="panel right">
-    <div class="right-head"><h3 class="panel-heading">Colors found</h3><span class="count" id="foundCount">6 colors</span></div>
-    <div class="swatches" id="swatches"></div>
+  <aside class="panel right" id="colorsPanel">
+    <div class="right-head"><div class="panel-title-row" style="flex:1"><h3 class="panel-heading">Colors found</h3><button class="panel-toggle" id="colorsToggle" type="button" aria-expanded="true">Hide ▴</button></div><span class="count" id="foundCount">6 colors</span></div>
+    <div id="colorsContent"><input class="color-search" id="colorSearch" type="search" placeholder="Search colors by name or HEX…" aria-label="Search colors by name or HEX"><div class="swatches" id="swatches"></div></div>
     <div class="mixbox"><h3>Color mixer</h3><p>Select two or more colors from your collection, then combine them.</p><div class="selected-row" id="selectedRow"><span class="count">No colors selected yet.</span></div><div class="mix-actions"><button class="secondary" id="mixBtn" disabled>＋ Combine colors</button><button class="ghost" id="clearBtn">Clear</button></div></div>
   </aside>
 </main>
@@ -146,6 +146,22 @@ function continueProfile(){
  alert("Your Chromatica access code is:\n\n"+profile.code+"\n\nSave this code to reopen your profile in this browser.");
 }
 const $=id=>document.getElementById(id);
+function setPanelCollapsed(panelId,buttonId,collapsed){
+ const panel=$(panelId),button=$(buttonId);
+ if(!panel||!button)return;
+ panel.classList.toggle("collapsed",collapsed);
+ button.setAttribute("aria-expanded",String(!collapsed));
+ button.textContent=collapsed?"Show ▾":"Hide ▴";
+}
+function initMobilePanels(){
+ const mobile=window.matchMedia("(max-width: 650px)").matches;
+ setPanelCollapsed("chaptersPanel","chaptersToggle",mobile);
+ setPanelCollapsed("colorsPanel","colorsToggle",mobile);
+}
+if($("chaptersToggle"))$("chaptersToggle").onclick=()=>setPanelCollapsed("chaptersPanel","chaptersToggle",!$("chaptersPanel").classList.contains("collapsed"));
+if($("colorsToggle"))$("colorsToggle").onclick=()=>setPanelCollapsed("colorsPanel","colorsToggle",!$("colorsPanel").classList.contains("collapsed"));
+window.addEventListener("resize",initMobilePanels);
+initMobilePanels();
 const goal=chapter=>chapter+2;
 const clamp=x=>Math.max(0,Math.min(255,Math.round(x)));
 function hex(rgb){return "#"+rgb.map(v=>clamp(v).toString(16).padStart(2,"0")).join("").toUpperCase()}
@@ -273,19 +289,26 @@ function render(){
   btn.disabled=i>state.unlocked;btn.innerHTML=`<span>Chapter ${String(i).padStart(2,"0")}</span><small>${i<=state.unlocked?(i===state.chapter?"CURRENT":"UNLOCKED"):"LOCKED"}</small>`;
   btn.onclick=()=>{if(i<=state.unlocked){state.chapter=i;state.current=null;state.selected=[];render()}};$("chapterList").appendChild(btn);
  }
+ const searchTerm=$("colorSearch")?$("colorSearch").value.trim().toLowerCase():"";
  $("swatches").innerHTML="";
+ let visibleCount=0;
  state.found.forEach((c,i)=>{
+  if(searchTerm&&!c.name.toLowerCase().includes(searchTerm)&&!c.hex.toLowerCase().includes(searchTerm))return;
+  visibleCount++;
   const b=document.createElement("button");b.className="swatch"+(state.selected.includes(i)?" selected":"");
   b.innerHTML=`<div class="swatch-color" style="background:${c.hex}"></div><div class="swatch-name" title="${c.name}">${c.name}</div><div class="swatch-code">${c.hex}</div>`;
   b.title=c.name+" · "+c.hex+" — click to select for mixing";
   b.onclick=()=>{state.selected=state.selected.includes(i)?state.selected.filter(x=>x!==i):[...state.selected,i];render()};
   $("swatches").appendChild(b);
  });
+ if(!visibleCount){const empty=document.createElement("div");empty.className="empty-search";empty.textContent="No matching colors found."; $("swatches").appendChild(empty)}
+ $("foundCount").textContent=searchTerm?`${visibleCount} of ${state.found.length} colors`:state.found.length+" colors";
  $("selectedRow").innerHTML=state.selected.length?state.selected.map(i=>{const c=state.found[i];return `<span class="chip"><i style="background:${c.hex}"></i>${c.name}</span>`}).join(""):'<span class="count">No colors selected yet.</span>';
  $("mixBtn").disabled=state.selected.length<2;
  // Save after every UI/state render so discoveries, rebirths, and chapter changes persist.
  saveProgress();
 }
+if($("colorSearch"))$("colorSearch").addEventListener("input",()=>render());
 $("authContinue").onclick=continueProfile;$("showProfiles").onclick=showProfiles;
 $("playerInput").addEventListener("keydown",e=>{if(e.key==="Enter")continueProfile()});
 $("switchPlayerBtn").onclick=openLogin;
